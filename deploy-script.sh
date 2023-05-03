@@ -1,5 +1,5 @@
 ### build the repository
-mvn clean install
+./mvnw clean install -Dmaven.test.skip=true
 
 ### set docker env
 eval $(minikube docker-env)
@@ -21,21 +21,13 @@ cat password.txt | docker login --username pyronaid --password-stdin
 docker push pyronaid/custom_springboot_app:${versionApp}
 docker rmi pyronaid/custom_springboot_app:${versionApp}
 
-
-
-#kubectl create -f travel-agency-service/secret.yaml
-#kubectl create -f travel-agency-service/mongo-deployment.yaml
-
-### travel-agency-service
-#kubectl delete -f travel-agency-service/travel-agency-deployment.yaml
-#kubectl create -f travel-agency-service/travel-agency-deployment.yaml
-
-### client-service
-#kubectl delete configmap client-service
-#kubectl delete -f client-service/client-service-deployment.yaml
-
-#kubectl create -f client-service/client-config.yaml
-#kubectl create -f client-service/client-service-deployment.yaml
-
-# Check that the pods are running
-#kubectl get pods
+#refresh installation
+echo "command delete -f springboot.yaml"
+kubectl delete -f springboot.yaml
+echo "###############################################"
+echo "###############################################"
+#refresh installation
+echo "command apply -f springboot.yaml"
+kubectl apply -f springboot.yaml
+echo "###############################################"
+echo "###############################################"
