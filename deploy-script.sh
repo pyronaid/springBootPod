@@ -16,7 +16,7 @@ fi
 
 ### build the docker images on minikube
 versionApp=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-docker build -t pyronaid/custom_springboot_app:${versionApp} .
+docker build -t pyronaid/custom_springboot_app:${versionApp} --rm=true .
 cat password.txt | docker login --username pyronaid --password-stdin
 docker push pyronaid/custom_springboot_app:${versionApp}
 docker rmi pyronaid/custom_springboot_app:${versionApp}
