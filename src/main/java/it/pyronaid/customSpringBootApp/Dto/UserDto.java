@@ -1,9 +1,8 @@
 package it.pyronaid.customSpringBootApp.Dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
@@ -12,11 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Entity
-@Table(name = "Users")
+@Document("User")
 public class UserDto {
     @Id
-    Long id;
+    String id;
 
     String username;
     String password;

@@ -1,8 +1,12 @@
 package it.pyronaid.customSpringBootApp.Jpa;
 
 import it.pyronaid.customSpringBootApp.Dto.UserDto;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-public interface UserRepository extends CrudRepository<UserDto, Long> {
+public interface UserRepository extends MongoRepository<UserDto, Long> {
+    @Query("{username:'?0'}")
     UserDto findByUsername(String username);
+
+    public long count();
 }
