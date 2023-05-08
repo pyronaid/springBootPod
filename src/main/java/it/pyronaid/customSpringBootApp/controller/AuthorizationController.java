@@ -1,19 +1,23 @@
 package it.pyronaid.customSpringBootApp.controller;
 
-import it.pyronaid.customSpringBootApp.Dto.LoginRequestDto;
-import it.pyronaid.customSpringBootApp.Dto.LoginResponseDto;
-import it.pyronaid.customSpringBootApp.Dto.UserDto;
+import it.pyronaid.customSpringBootApp.Dto.*;
 import it.pyronaid.customSpringBootApp.Jpa.UserRepository;
+import it.pyronaid.customSpringBootApp.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 @RestController
 public class AuthorizationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @PostMapping("/authentication/login")
     public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto){
@@ -32,4 +36,23 @@ public class AuthorizationController {
             return null;
         }
     }
+
+
+    @PostMapping("/authentication/register")
+    public SignupResponseDto register(@RequestBody SignupRequestDto signupRequestDto){
+        if(signupRequestDto != null) {
+            UserDto userDto = new UserDto();
+            userDto.setUserId(sequenceGeneratorService.generateSequence("users_sequence"));
+            userDto.setUsername(signupRequestDto.getUsernameProvided());
+            userDto.setPassword(signupRequestDto.getPasswordProvided());
+            userDto.setEmail(signupRequestDto.getMailProvided());
+            userDto.setFirstSubscriptionDate(LocalDateTime.now());
+            userDto = userRepository.save(userDto);
+            return new SignupResponseDto( null, null, null, null, null, userDto);
+        } else {
+            return null;
+        }
+    }
+
+
 }

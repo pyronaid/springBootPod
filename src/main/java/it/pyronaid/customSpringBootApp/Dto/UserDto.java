@@ -2,6 +2,7 @@ package it.pyronaid.customSpringBootApp.Dto;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -13,11 +14,16 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Document("User")
 public class UserDto {
-    @Id
-    String id;
 
-    String username;
-    String password;
-    String email;
-    LocalDateTime firstSubscriptionDate;
+    @Transient
+    public static final String SEQUENCE_NAME = "users_sequence";
+
+    @Id
+    private String id;
+
+    private Long userId;
+    private String username;
+    private String password;
+    private String email;
+    private LocalDateTime firstSubscriptionDate;
 }
