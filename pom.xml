@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>it.pyronaid</groupId>
 	<artifactId>customSpringBootApp</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>customSpringBootApp</name>
 	<description>custom Spring Boot App</description>
 	<properties>
