@@ -8,5 +8,8 @@ public interface UserRepository extends MongoRepository<UserDto, Long> {
     @Query("{username:'?0'}")
     UserDto findByUsername(String username);
 
+    @Query("{email:'?0'}")
+    UserDto findByMail(String email);
+
     public long count();
 }
