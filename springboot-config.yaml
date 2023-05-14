@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: springboot-config
+data:
+  # property-like keys; each key maps to a simple value
+  BE_URL: springboot-service-ext
+  BE_PORT: "7071"
+  BE_LOGIN_API_ADDRESS: /authentication/login
+  BE_SIGNUP_API_ADDRESS: /authentication/register

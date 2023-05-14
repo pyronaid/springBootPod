@@ -16,7 +16,7 @@ fi
 
 ### build the docker images on minikube
 versionApp=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-docker build -t pyronaid/custom_springboot_app:${versionApp} --rm=true .
+docker build --build-arg APP_VERSION=${versionApp} -t pyronaid/custom_springboot_app:${versionApp} --rm=true .
 cat password.txt | docker login --username pyronaid --password-stdin
 docker push pyronaid/custom_springboot_app:${versionApp}
 docker rmi pyronaid/custom_springboot_app:${versionApp}
@@ -26,7 +26,14 @@ echo "command delete -f springboot.yaml"
 kubectl delete -f springboot.yaml
 echo "###############################################"
 echo "###############################################"
-#refresh installation
+echo "command delete -f springboot-config.yaml"
+kubectl delete -f springboot-config.yaml
+echo "###############################################"
+echo "###############################################"
+echo "command apply -f springboot-config.yaml"
+kubectl apply -f springboot-config.yaml
+echo "###############################################"
+echo "###############################################"
 echo "command apply -f springboot.yaml"
 kubectl apply -f springboot.yaml
 echo "###############################################"
